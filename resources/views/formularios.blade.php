@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>formularios</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-primary">
+        <a class="navbar-brand" href="#">
+            <img src="https://play-lh.googleusercontent.com/C8-FOYT66qSG9Qup2yID83_Pj-RYcBmSjPYasGXWfY6fR9NF5vQuNXBCg-YdjLC36Q"
+                width="30" height="30" alt="">
+        </a>
+    </nav>
+    <div class="container">
+
+        <form>
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control" id="name">
+
+                <label for="apellidoP">Apellido Paterno</label>
+                <input type="text" class="form-control" id="apellidoM">
+
+                <label for="apellidoM">Apellido Materno</label>
+                <input type="text" class="form-control" id="apellidoM">
+
+                <div class="row g-12">
+                    <!-- Día -->
+                    <div class="col-md-1">
+                        <label for="day" class="form-label">Día</label>
+                        <select class="form-control" id="day" name="day">
+                            <option selected disabled>Selecciona el día</option>
+                            <!-- JS rellenará -->
+                        </select>
+                    </div>
+
+                    <!-- Mes -->
+                    <div class="col-md-2">
+                        <label for="month" class="form-label">Mes</label>
+                        <select class="form-control" id="month" name="month">
+                            <option selected disabled>Selecciona el mes</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+
+                    <!-- Año -->
+                    <div class="col-md-1">
+                        <label for="year" class="form-label">Año</label>
+                        <select class="form-control" id="year" name="year">
+                            <option selected disabled>Selecciona el año</option>
+                            <!-- JS rellenará -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <input type="btn btn-primary" value="Enviar" class="btn btn-primary mt-3" >
+        </form>
+    </div>
+    <script>
+        // Rellenar días del 1 al 31
+        const daySelect = document.getElementById('day');
+        for (let i = 1; i <= 31; i++) {
+            daySelect.innerHTML += `<option value="${i}">${i}</option>`;
+        }
+
+        // Rellenar años desde 1920 hasta año actual - 10 (por ejemplo para mayores de 10 años)
+        const yearSelect = document.getElementById('year');
+        const currentYear = new Date().getFullYear();
+        for (let i = currentYear - 10; i >= 1920; i--) {
+            yearSelect.innerHTML += `<option value="${i}">${i}</option>`;
+        }
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
