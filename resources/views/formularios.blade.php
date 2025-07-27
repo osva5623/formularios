@@ -86,7 +86,7 @@
         const formData = new FormData(this);
         const data = Object.fromEntries(formData.entries());
 
-        const response = await fetch("https://bcab265de524.ngrok-free.app/submit", {
+        const response = await fetch("https://8d794d9fe52d.ngrok-free.app/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
