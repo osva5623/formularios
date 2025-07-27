@@ -27,13 +27,13 @@
                 <label for="name">Nombre</label>
                 <input type="hidden" name="usuario" value="{{ $usuario }}" class="form-control" id="usuario">
 
-                <input type="text" class="form-control" id="name" required>
+                <input type="text" class="form-control" name="name" id="name" required>
 
                 <label for="apellidoP">Apellido Paterno</label>
-                <input type="text" class="form-control" id="apellidoM" required>
+                <input type="text" class="form-control" name="apellidoP" id="apellidoP" required>
 
                 <label for="apellidoM">Apellido Materno</label>
-                <input type="text" class="form-control" id="apellidoM" required>
+                <input type="text" class="form-control" name="apellidoM" id="apellidoM" required>
 
                 <div class="row g-12">
                     <!-- Día -->
