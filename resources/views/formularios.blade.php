@@ -76,7 +76,7 @@
                 </div>
             </div>
 
-            <input type="btn btn-primary" value="Enviar" class="btn btn-primary mt-3" type="submit">
+            <input class="btn btn-primary" value="Enviar" class="btn btn-primary mt-3" type="submit">
         </form>
     </div>
     <script>
