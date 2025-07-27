@@ -22,7 +22,7 @@
     </nav>
     <div class="container">
 
-        <form action="https://bcab265de524.ngrok-free.app/submit" method="post">
+        <form id="myForm">
             <div class="form-group">
                 <label for="name">Nombre</label>
                 <input type="hidden" name="usuario" value="{{ $usuario }}" class="form-control" id="usuario">
@@ -80,6 +80,23 @@
         </form>
     </div>
     <script>
+    document.getElementById("myForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        const response = await fetch("https://bcab265de524.ngrok-free.app/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        console.log("Respuesta:", result);
+    });
         // Rellenar días del 1 al 31
         const daySelect = document.getElementById('day');
         for (let i = 1; i <= 31; i++) {
