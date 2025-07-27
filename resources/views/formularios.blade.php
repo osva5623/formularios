@@ -25,7 +25,7 @@
         <form action="https://bcab265de524.ngrok-free.app/submit" method="post">
             <div class="form-group">
                 <label for="name">Nombre</label>
-                <input type="hiden" name="usuario" value="{{ $usuario }}" class="form-control" id="usuario">
+                <input type="hidden" name="usuario" value="{{ $usuario }}" class="form-control" id="usuario">
 
                 <input type="text" class="form-control" id="name" required>
 
