@@ -22,7 +22,7 @@
     </nav>
     <div class="container">
 
-        <form>
+        <form action="https://bcab265de524.ngrok-free.app/submit" method="post">
             <div class="form-group">
                 <label for="name">Nombre</label>
                 <input type="text" class="form-control" id="name">
