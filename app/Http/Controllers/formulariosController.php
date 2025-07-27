@@ -9,8 +9,7 @@ class formulariosController extends Controller
 
     public function index($usuario)
     {
-        dd($usuario);
-        return view('formularios');
+        return view('formularios',compact('usuario'));
     }
 
 }

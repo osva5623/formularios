@@ -25,19 +25,21 @@
         <form action="https://bcab265de524.ngrok-free.app/submit" method="post">
             <div class="form-group">
                 <label for="name">Nombre</label>
-                <input type="text" class="form-control" id="name">
+                <input type="hiden" name="usuario" value="{{ $usuario }}" class="form-control" id="usuario">
+
+                <input type="text" class="form-control" id="name" required>
 
                 <label for="apellidoP">Apellido Paterno</label>
-                <input type="text" class="form-control" id="apellidoM">
+                <input type="text" class="form-control" id="apellidoM" required>
 
                 <label for="apellidoM">Apellido Materno</label>
-                <input type="text" class="form-control" id="apellidoM">
+                <input type="text" class="form-control" id="apellidoM" required>
 
                 <div class="row g-12">
                     <!-- Día -->
                     <div class="col-md-1">
                         <label for="day" class="form-label">Día</label>
-                        <select class="form-control" id="day" name="day">
+                        <select class="form-control" id="day" name="day" required>
                             <option selected disabled>Selecciona el día</option>
                             <!-- JS rellenará -->
                         </select>
@@ -46,7 +48,7 @@
                     <!-- Mes -->
                     <div class="col-md-2">
                         <label for="month" class="form-label">Mes</label>
-                        <select class="form-control" id="month" name="month">
+                        <select class="form-control" id="month" name="month" required>
                             <option selected disabled>Selecciona el mes</option>
                             <option value="1">Enero</option>
                             <option value="2">Febrero</option>
@@ -66,7 +68,7 @@
                     <!-- Año -->
                     <div class="col-md-1">
                         <label for="year" class="form-label">Año</label>
-                        <select class="form-control" id="year" name="year">
+                        <select class="form-control" id="year" name="year" required>
                             <option selected disabled>Selecciona el año</option>
                             <!-- JS rellenará -->
                         </select>
