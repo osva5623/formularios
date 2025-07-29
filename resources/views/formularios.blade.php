@@ -107,8 +107,8 @@ document.getElementById("myForm").addEventListener("submit", async function(e) {
             }).then(() => {
                 // Redirección después de aceptar
                 url = new URL(window.location.href);
-                url_destino=url+"/formularios/s";
-                window.location.href=ur
+                url_destino=url.origin+"/formularios/s";
+                window.location.href=url_destino
             });
 
         } else {
