@@ -106,7 +106,8 @@ document.getElementById("myForm").addEventListener("submit", async function(e) {
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 // Redirección después de aceptar
-                window.location.href = "formularios/s"; // Cambia esto según lo necesario
+                url = new URL(window.location.href);
+                window.location.href necesario
             });
 
         } else {
