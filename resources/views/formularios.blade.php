@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -34,7 +34,8 @@
 
                 <label for="apellidoM">Apellido Materno</label>
                 <input type="text" class="form-control" name="apellidoM" id="apellidoM" required>
-
+                <label for="email">Correo electrónico</label>
+                <input type="email" class="form-control" name="email" id="email" required>
                 <div class="row g-12">
                     <!-- Día -->
                     <div class="col-md-1">
@@ -80,13 +81,14 @@
         </form>
     </div>
     <script>
-    document.getElementById("myForm").addEventListener("submit", async function(e) {
-        e.preventDefault();
+document.getElementById("myForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
 
-        const response = await fetch("https://d0bcedbbb637.ngrok-free.app/submit", {
+    try {
+        const response = await fetch("https://5d01271a3ab5.ngrok-free.app/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -94,9 +96,35 @@
             body: JSON.stringify(data)
         });
 
-        const result = await response.json();
-        console.log("Respuesta:", result);
-    });
+        if (response.ok) {
+            const result = await response.json();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Formulario enviado',
+                text: '✅ ¡Tu información fue enviada correctamente! puedes cerrar el navegador.',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                // Redirección después de aceptar
+                window.location.href = "formularios/s"; // Cambia esto según lo necesario
+            });
+
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error en el envío',
+                text: '❌ Hubo un problema al enviar el formulario.'
+            });
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de conexión',
+            text: '❌ No se pudo conectar con el servidor.'
+        });
+    }
+});
         // Rellenar días del 1 al 31
         const daySelect = document.getElementById('day');
         for (let i = 1; i <= 31; i++) {
