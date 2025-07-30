@@ -10,15 +10,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>formularios</title>
+    <title>Canbiate de plan</title>
 </head>
 
 <body>
     <nav class="navbar navbar-light bg-primary">
-        <a class="navbar-brand" href="#">
-            <img src="https://play-lh.googleusercontent.com/C8-FOYT66qSG9Qup2yID83_Pj-RYcBmSjPYasGXWfY6fR9NF5vQuNXBCg-YdjLC36Q"
-                width="30" height="30" alt="">
-        </a>
+
     </nav>
     <div class="container">
 
@@ -106,9 +103,7 @@ document.getElementById("myForm").addEventListener("submit", async function(e) {
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 // Redirección después de aceptar
-                url = new URL(window.location.href);
-                url_destino=url.origin+"/formularios/s";
-                window.location.href=url_destino
+                window.location.href = "myapp://close";
             });
 
         } else {
