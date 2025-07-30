@@ -103,7 +103,7 @@ document.getElementById("myForm").addEventListener("submit", async function(e) {
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 // Redirección después de aceptar
-                window.location.href = "myapp://close";
+                window.close();
             });
 
         } else {
