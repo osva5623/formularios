@@ -85,7 +85,7 @@ document.getElementById("myForm").addEventListener("submit", async function(e) {
     const data = Object.fromEntries(formData.entries());
 
     try {
-        const response = await fetch("https://a3484f7d6b87.ngrok-free.app/submit", {
+        const response = await fetch("https://7fa6df1afde1.ngrok-free.app/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
