@@ -98,9 +98,9 @@ document.getElementById("myForm").addEventListener("submit", async function(e) {
 
             Swal.fire({
                 icon: 'success',
-                title: 'Formulario enviado',
-                text: '✅ ¡Tu información fue enviada correctamente! puedes cerrar el navegador.',
-                confirmButtonText: 'Aceptar'
+                title: 'Listo',
+                text: 'Tu información se envió correctamente. Da clic en continuar',
+                confirmButtonText: 'Continuar'
             }).then(() => {
                 // Redirección después de aceptar
                 window.close();
@@ -109,8 +109,8 @@ document.getElementById("myForm").addEventListener("submit", async function(e) {
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'Error en el envío',
-                text: '❌ Hubo un problema al enviar el formulario.'
+                title: 'Error',
+                text: '❌ Hubo un problema al enviar tu información'
             });
         }
     } catch (error) {
