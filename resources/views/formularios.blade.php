@@ -149,7 +149,7 @@
 
 <body>
     <nav class="navbar navbar-light color_movistar">
-        <h1>Ingresa tus datos</h1>
+        <h1>Datos personales</h1>
     </nav>
     <br>
     <div class="container">
@@ -159,7 +159,7 @@
                 <label for="name">Nombre</label>
                 <input type="hidden" name="usuario" value="{{ $usuario }}" class="form-control" id="usuario">
 
-                <input type="text" class="form-control" name="name" id="name" required>
+                <input type="text" class="form-control " name="name" id="name" required>
 
                 <label for="apellidoP">Apellido Paterno</label>
                 <input type="text" class="form-control" name="apellidoP" id="apellidoP" required>
@@ -179,8 +179,8 @@
                 <div class="column years-column"></div>
             </div>
             <div class="button-container">
-                <button class="cancel-button">CANCELAR</button>
-                <button class="accept-button">ACEPTAR</button>
+                <div class="cancel-button btn color_movistar">CANCELAR</div>
+                <div class="accept-button btn color_movistar">ACEPTAR</div>
             </div>
         </div>
     </div>
