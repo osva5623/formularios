@@ -10,13 +10,148 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Cambiate de plan</title>
+    <title>Información personal</title>
+    <style>
+        .color_movistar{
+            background-color: #019DF4;
+            color:white;
+        }
+:root {
+    --highlight-color: #019DF4;
+
+    --item-height: 40px;
+}
+
+
+
+
+.input-container {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+/* Modal del selector de fecha */
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-background.hidden {
+    opacity: 0;
+    pointer-events: none; /* No interactuable cuando está oculto */
+}
+
+.date-picker-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.date-picker {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    position: relative;
+}
+
+.date-picker::before,
+.date-picker::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    height: 1px;
+    background-color: var(--border-color);
+    z-index: 1;
+}
+
+.date-picker::before {
+    top: calc(50% - var(--item-height) / 2);
+}
+
+.date-picker::after {
+    top: calc(50% + var(--item-height) / 2);
+}
+
+.column {
+    flex: 1;
+    text-align: center;
+    height: calc(var(--item-height) * -1); /* Aumenta la altura para que 5 elementos quepan */
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    /* Aumenta el padding para que el último elemento pueda llegar al centro */
+    padding: calc(var(--item-height) * 2) 0;
+}
+
+.column::-webkit-scrollbar {
+    display: none;
+}
+
+.item {
+    height: var(--item-height);
+    line-height: var(--item-height);
+    font-size: 1.1em;
+    color: #666;
+    transition: all 0.2s ease-in-out;
+    user-select: none; /* Evita la selección de texto */
+}
+
+.item.active {
+    font-weight: bold;
+    color: #000;
+    font-size: 1.3em;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+    gap: 10px;
+}
+
+.button-container button {
+    background: none;
+    border: none;
+    color: var(--highlight-color);
+    font-size: 1em;
+    padding: 10px 15px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    border-radius: 4px;
+}
+
+.button-container button:hover {
+    background-color: #f0f0f0;
+}
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-primary">
-
+    <nav class="navbar navbar-light color_movistar">
+        <h1>Ingresa tus datos</h1>
     </nav>
+    <br>
     <div class="container">
 
         <form id="myForm">
@@ -33,51 +168,203 @@
                 <input type="text" class="form-control" name="apellidoM" id="apellidoM" required>
                 <label for="email">Correo electrónico</label>
                 <input type="email" class="form-control" name="email" id="email" required>
-                <div class="row g-12">
-                    <!-- Día -->
-                    <div class="col-md-1">
-                        <label for="day" class="form-label">Día</label>
-                        <select class="form-control" id="day" name="day" required>
-                            <option selected disabled>Selecciona el día</option>
-                            <!-- JS rellenará -->
-                        </select>
-                    </div>
-
-                    <!-- Mes -->
-                    <div class="col-md-2">
-                        <label for="month" class="form-label">Mes</label>
-                        <select class="form-control" id="month" name="month" required>
-                            <option selected disabled>Selecciona el mes</option>
-                            <option value="1">Enero</option>
-                            <option value="2">Febrero</option>
-                            <option value="3">Marzo</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Mayo</option>
-                            <option value="6">Junio</option>
-                            <option value="7">Julio</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
-                        </select>
-                    </div>
-
-                    <!-- Año -->
-                    <div class="col-md-1">
-                        <label for="year" class="form-label">Año</label>
-                        <select class="form-control" id="year" name="year" required>
-                            <option selected disabled>Selecciona el año</option>
-                            <!-- JS rellenará -->
-                        </select>
-                    </div>
-                </div>
+                <label for="fecha_na">Fecha de nacimiento</label>
+                <input type="text" id="fecha-input" class="form-control" name="fecha_na"  required>
             </div>
+    <div class="modal-background hidden">
+        <div class="date-picker-container">
+            <div class="date-picker">
+                <div class="column days-column"></div>
+                <div class="column months-column"></div>
+                <div class="column years-column"></div>
+            </div>
+            <div class="button-container">
+                <button class="cancel-button">CANCELAR</button>
+                <button class="accept-button">ACEPTAR</button>
+            </div>
+        </div>
+    </div>
 
-            <input class="btn btn-primary" value="Enviar" class="btn btn-primary mt-3" type="submit">
+            <input class="btn color_movistar btn-lg btn-block"  value="Enviar" class="btn btn-primary mt-3" type="submit">
         </form>
     </div>
     <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const fechaInput = document.getElementById('fecha-input');
+    const modalBackground = document.querySelector('.modal-background');
+    const daysColumn = document.querySelector('.days-column');
+    const monthsColumn = document.querySelector('.months-column');
+    const yearsColumn = document.querySelector('.years-column');
+    const acceptButton = document.querySelector('.accept-button');
+    const cancelButton = document.querySelector('.cancel-button');
+
+    let selectedValues = {
+        day: 0,
+        month: 0,
+        year: 0
+    };
+
+    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const itemHeight = 40; // Debe coincidir con el CSS
+
+    // --- Funciones para generar contenido dinámico ---
+
+    const addPadding = (column) => {
+        // Añade 2 divs vacíos de padding al principio y al final
+        for (let i = 0; i < 2; i++) {
+            column.prepend(document.createElement('div'));
+            column.appendChild(document.createElement('div'));
+        }
+    };
+
+    const generateDays = (year, month) => {
+        daysColumn.innerHTML = '';
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        for (let i = 1; i <= daysInMonth; i++) {
+            const item = document.createElement('div');
+            item.classList.add('item');
+            item.textContent = i;
+            item.dataset.value = i;
+            daysColumn.appendChild(item);
+        }
+        addPadding(daysColumn);
+
+        if (selectedValues.day > daysInMonth) {
+            selectedValues.day = daysInMonth;
+        }
+    };
+
+    const generateMonths = () => {
+        monthsColumn.innerHTML = '';
+        months.forEach((month, index) => {
+            const item = document.createElement('div');
+            item.classList.add('item');
+            item.textContent = month;
+            item.dataset.value = index;
+            monthsColumn.appendChild(item);
+        });
+        addPadding(monthsColumn);
+    };
+
+    const generateYears = () => {
+        yearsColumn.innerHTML = '';
+        const currentYear = new Date().getFullYear();
+
+        for (let i = currentYear - 100; i <= currentYear + 50; i++) {
+            const item = document.createElement('div');
+            item.classList.add('item');
+            item.textContent = i;
+            item.dataset.value = i;
+            yearsColumn.appendChild(item);
+        }
+        addPadding(yearsColumn);
+    };
+
+    // --- Lógica de selección y scroll ---
+
+    const findClosestElement = (column) => {
+        const items = column.querySelectorAll('.item');
+        let closestItem = null;
+        let minDistance = Infinity;
+        const columnCenter = column.scrollTop + (column.clientHeight / 2);
+
+        items.forEach(item => {
+            // Se calcula la distancia al centro del elemento, ignorando el padding
+            const itemCenter = item.offsetTop + (item.clientHeight / 2);
+            const distance = Math.abs(columnCenter - itemCenter);
+
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestItem = item;
+            }
+        });
+        return closestItem;
+    };
+
+    const selectClosestElement = (column, type) => {
+        const closest = findClosestElement(column);
+        if (closest) {
+            const offset = closest.offsetTop - (column.clientHeight / 2) + (closest.clientHeight / 2);
+
+            // Usar requestAnimationFrame para un scroll más suave
+            column.scrollTo({
+                top: offset,
+                behavior: 'smooth'
+            });
+
+            column.querySelectorAll('.item').forEach(el => el.classList.remove('active'));
+            closest.classList.add('active');
+
+            let value = parseInt(closest.dataset.value);
+            if (selectedValues[type] !== value) {
+                selectedValues[type] = value;
+                if (type === 'month' || type === 'year') {
+                    generateDays(selectedValues.year, selectedValues.month);
+                    selectElement(daysColumn, selectedValues.day);
+                }
+            }
+        }
+    };
+
+    const selectElement = (column, value) => {
+        const items = column.querySelectorAll('.item');
+        let itemToSelect = null;
+        items.forEach(item => {
+            if (parseInt(item.dataset.value) === value) {
+                itemToSelect = item;
+            }
+        });
+
+        if (itemToSelect) {
+            column.querySelectorAll('.item').forEach(el => el.classList.remove('active'));
+            itemToSelect.classList.add('active');
+            const offset = itemToSelect.offsetTop - (column.clientHeight / 2) + (itemToSelect.clientHeight / 2);
+            column.scrollTop = offset;
+        }
+    };
+
+    // --- Eventos de UI ---
+
+    const handleScrollEnd = (column, type) => {
+        clearTimeout(column.scrollTimeout);
+        column.scrollTimeout = setTimeout(() => {
+            selectClosestElement(column, type);
+        }, 150);
+    };
+
+    daysColumn.addEventListener('scroll', () => handleScrollEnd(daysColumn, 'day'));
+    monthsColumn.addEventListener('scroll', () => handleScrollEnd(monthsColumn, 'month'));
+    yearsColumn.addEventListener('scroll', () => handleScrollEnd(yearsColumn, 'year'));
+
+    // Abrir el modal
+    fechaInput.addEventListener('click', () => {
+        const now = new Date();
+        selectedValues.day = now.getDate();
+        selectedValues.month = now.getMonth();
+        selectedValues.year = now.getFullYear();
+
+        generateYears();
+        generateMonths();
+        generateDays(selectedValues.year, selectedValues.month);
+
+        selectElement(yearsColumn, selectedValues.year);
+        selectElement(monthsColumn, selectedValues.month);
+        selectElement(daysColumn, selectedValues.day);
+
+        modalBackground.classList.remove('hidden');
+    });
+
+    cancelButton.addEventListener('click', () => {
+        modalBackground.classList.add('hidden');
+    });
+
+    acceptButton.addEventListener('click', () => {
+        const formattedDate = `${selectedValues.day}/${selectedValues.month + 1}/${selectedValues.year}`;
+        fechaInput.value = formattedDate;
+        modalBackground.classList.add('hidden');
+    });
+});
 document.getElementById("myForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
@@ -122,19 +409,8 @@ document.getElementById("myForm").addEventListener("submit", async function(e) {
         });
     }
 });
-        // Rellenar días del 1 al 31
-        const daySelect = document.getElementById('day');
-        for (let i = 1; i <= 31; i++) {
-            daySelect.innerHTML += `<option value="${i}">${i}</option>`;
-        }
 
-        // Rellenar años desde 1920 hasta año actual - 10 (por ejemplo para mayores de 10 años)
-        const yearSelect = document.getElementById('year');
-        const currentYear = new Date().getFullYear();
-        for (let i = currentYear - 10; i >= 1920; i--) {
-            yearSelect.innerHTML += `<option value="${i}">${i}</option>`;
-        }
-    </script>
+</script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
