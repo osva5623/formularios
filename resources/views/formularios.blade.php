@@ -109,7 +109,7 @@
 .item {
     height: var(--item-height);
     line-height: var(--item-height);
-    font-size: 0.9em;
+    font-size: 1.0em;
     color: #666;
     transition: all 0.2s ease-in-out;
     user-select: none; /* Evita la selección de texto */
@@ -118,7 +118,7 @@
 .item.active {
     font-weight: bold;
     color: #000;
-    font-size: 1.0em;
+    font-size: 1.1em;
 }
 
 .button-container {
