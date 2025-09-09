@@ -109,7 +109,7 @@
 .item {
     height: var(--item-height);
     line-height: var(--item-height);
-    font-size: 1.1em;
+    font-size: 0.9em;
     color: #666;
     transition: all 0.2s ease-in-out;
     user-select: none; /* Evita la selección de texto */
@@ -118,7 +118,7 @@
 .item.active {
     font-weight: bold;
     color: #000;
-    font-size: 1.3em;
+    font-size: 1.0em;
 }
 
 .button-container {
@@ -149,7 +149,7 @@
 
 <body>
     <nav class="navbar navbar-light color_movistar">
-        <h1>Datos personales</h1>
+        <h4>Datos personales</h4>
     </nav>
     <br>
     <div class="container">
@@ -387,6 +387,7 @@ document.getElementById("myForm").addEventListener("submit", async function(e) {
                 icon: 'success',
                 title: 'Listo',
                 text: 'Tu información se envió correctamente. Da clic en continuar',
+                confirmButtonColor:'#019DF4',
                 confirmButtonText: 'Continuar'
             }).then(() => {
                 // Redirección después de aceptar
