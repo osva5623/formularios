@@ -148,7 +148,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light color_movistar">
+    <nav class="navbar navbar-light color_movistar d-flex align-items-center ps-3">
         <h4>Datos personales</h4>
     </nav>
     <br>
