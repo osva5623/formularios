@@ -94,7 +94,7 @@
 .column {
     flex: 1;
     text-align: center;
-    height: calc(var(--item-height) * -1); /* Aumenta la altura para que 5 elementos quepan */
+    height: calc(var(--item-height) * 2); /* Aumenta la altura para que 5 elementos quepan */
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -109,7 +109,7 @@
 .item {
     height: var(--item-height);
     line-height: var(--item-height);
-    font-size: 1.0em;
+    font-size: 0.9em;
     color: #666;
     transition: all 0.2s ease-in-out;
     user-select: none; /* Evita la selección de texto */
@@ -118,7 +118,7 @@
 .item.active {
     font-weight: bold;
     color: #000;
-    font-size: 1.1em;
+    font-size: 1.0em;
 }
 
 .button-container {
@@ -149,7 +149,7 @@
 
 <body>
     <nav class="navbar navbar-light color_movistar d-flex align-items-center ps-3">
-        <h4  class="m-0">Datos personales</h4>
+        <h4 class="m-0">Datos personales</h4>
     </nav>
     <br>
     <div class="container">
@@ -159,15 +159,15 @@
                 <label for="name">Nombre</label>
                 <input type="hidden" name="usuario" value="{{ $usuario }}" class="form-control" id="usuario">
 
-                <input type="text" class="form-control " name="name" id="name" required>
+                <input type="text" class="form-control " name="name" id="name" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ]+" title="Solo letras" required>
 
                 <label for="apellidoP">Apellido Paterno</label>
-                <input type="text" class="form-control" name="apellidoP" id="apellidoP" required>
+                <input type="text" class="form-control" name="apellidoP" id="apellidoP" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ]+" title="Solo letras" required>
 
                 <label for="apellidoM">Apellido Materno</label>
-                <input type="text" class="form-control" name="apellidoM" id="apellidoM" required>
+                <input type="text" class="form-control" name="apellidoM" id="apellidoM" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ]+" title="Solo letras" required>
                 <label for="email">Correo electrónico</label>
-                <input type="email" class="form-control" name="email" id="email" required>
+                <input type="email" class="form-control" name="email" id="email"  required>
                 <label for="fecha_na">Fecha de nacimiento</label>
                 <input type="text" id="fecha-input" class="form-control" name="fecha_na"  required>
             </div>
@@ -251,7 +251,9 @@
         yearsColumn.innerHTML = '';
         const currentYear = new Date().getFullYear();
 
-        for (let i = currentYear - 100; i <= currentYear + 50; i++) {
+
+
+        for (let i=currentYear -18; i >=currentYear - 90; i--) {
             const item = document.createElement('div');
             item.classList.add('item');
             item.textContent = i;
@@ -340,9 +342,10 @@
     // Abrir el modal
     fechaInput.addEventListener('click', () => {
         const now = new Date();
+        currentYear = new Date().getFullYear();
         selectedValues.day = now.getDate();
         selectedValues.month = now.getMonth();
-        selectedValues.year = now.getFullYear();
+        selectedValues.year = currentYear-18;
 
         generateYears();
         generateMonths();
@@ -365,11 +368,55 @@
         modalBackground.classList.add('hidden');
     });
 });
-document.getElementById("myForm").addEventListener("submit", async function(e) {
+
+  const email = document.getElementById('email');
+  const form= document.getElementById("myForm")
+  // Lista de dominios permitidos (todo en minúsculas)
+  const allowedDomains = [
+    'gmail.com',
+    'hotmail.com',
+    'outlook.com',
+    'yahoo.com',
+    'icloud.com',
+    'live.com',
+    'protonmail.com'
+  ];
+
+
+form.addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
+
+
+    email.setCustomValidity('');
+    const emailVal = email.value.trim();
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      form.reportValidity();
+      return;
+    }
+
+    // 3) Validación dominio del email (case-insensitive)
+    // Convertimos a minúsculas para comparar
+    const lowerEmail = emailVal.toLowerCase();
+    const parts = lowerEmail.split('@');
+    if (parts.length !== 2 || parts[0].length === 0 || parts[1].length === 0) {
+      e.preventDefault();
+      email.setCustomValidity('Formato de correo inválido.');
+      email.reportValidity();
+      return;
+    }
+
+    const domain = parts[1];
+    if (!allowedDomains.includes(domain)) {
+      e.preventDefault();
+      email.setCustomValidity('Dominio no permitido. Usa uno de: ' + allowedDomains.join(', ') + '.');
+      email.reportValidity();
+      return;
+    }
+
 
     try {
         const response = await fetch("https://e1c655a56504.ngrok-free.app/submit", {
