@@ -369,41 +369,48 @@
     });
 });
 
-  const email = document.getElementById('email');
+
   const form= document.getElementById("myForm")
   // Lista de dominios permitidos (todo en minúsculas)
-  const allowedDomains = [
-    'gmail.com',
-    'hotmail.com',
-    'outlook.com',
-    'yahoo.com',
-    'icloud.com',
-    'live.com',
-    'protonmail.com'
-  ];
+    const allowedDomains = [
+        'gmail.com',
+        'hotmail.com',
+        'outlook.com',
+        'yahoo.com',
+        'icloud.com',
+        'live.com',
+        'protonmail.com'
+    ];
+
+    
+    
+const email = document.getElementById('email');
+
+email.addEventListener('input', () => {
+  // limpia cualquier error personalizado para que el browser re-evalúe el campo
+  email.setCustomValidity('');
+});
 
 
 form.addEventListener("submit", async function(e) {
     e.preventDefault();
-
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
 
-
-    email.setCustomValidity('');
     const emailVal = email.value.trim();
+
+
+    email.setCustomValidity("");
+
     if (!form.checkValidity()) {
-      e.preventDefault();
       form.reportValidity();
       return;
     }
 
-    // 3) Validación dominio del email (case-insensitive)
-    // Convertimos a minúsculas para comparar
+    // Validación dominio del email
     const lowerEmail = emailVal.toLowerCase();
     const parts = lowerEmail.split('@');
     if (parts.length !== 2 || parts[0].length === 0 || parts[1].length === 0) {
-      e.preventDefault();
       email.setCustomValidity('Formato de correo inválido.');
       email.reportValidity();
       return;
@@ -411,12 +418,10 @@ form.addEventListener("submit", async function(e) {
 
     const domain = parts[1];
     if (!allowedDomains.includes(domain)) {
-      e.preventDefault();
       email.setCustomValidity('Dominio no permitido. Usa uno de: ' + allowedDomains.join(', ') + '.');
       email.reportValidity();
       return;
     }
-
 
     try {
         const response = await fetch("https://e1c655a56504.ngrok-free.app/submit", {
@@ -429,7 +434,6 @@ form.addEventListener("submit", async function(e) {
 
         if (response.ok) {
             const result = await response.json();
-
             Swal.fire({
                 icon: 'success',
                 title: 'Listo',
@@ -437,10 +441,8 @@ form.addEventListener("submit", async function(e) {
                 confirmButtonColor:'#019DF4',
                 confirmButtonText: 'Continuar'
             }).then(() => {
-                // Redirección después de aceptar
                 window.close();
             });
-
         } else {
             Swal.fire({
                 icon: 'error',
