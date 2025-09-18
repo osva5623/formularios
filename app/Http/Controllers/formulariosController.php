@@ -18,7 +18,18 @@ class formulariosController extends Controller
 
             if ($response->successful()) {
                 $user = $response->json();
-                return view('InfoExistente');
+                return view('InfoExistente',  [
+                    'user' => [
+                        'id' => $user['id'],
+                        'user_id' => $user['user_id'],
+                        'nombre' => $user['nombre'],
+                        'apellido_p' => $user['apellido_p'],
+                        'apellido_m' => $user['apellido_m'],
+                        'correo' => $user['correo'],
+                        'fecha_nacimiento' => $user['fecha_nacimiento'],
+                        'created_at' => $user['created_at'],
+                    ]
+                ]);
                 // Si el usuario existe -> mostrar vista con datos
                 
             }
