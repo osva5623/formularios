@@ -154,13 +154,15 @@
     <br>
     <div class="container">
     <div class="card">
-        <h1>✅ Solicitud registrada</h1>
-        <p>Hemos recibido tu formulario.</p>
+          <div class="card-header">
+   <h5>✅ Solicitud registrada</h5>
+  </div>
+        <p>Hemos recibido tu solicitud.</p>
         <p>Estos son los datos que enviaste:</p>
         <p><strong>Nombre:</strong> {{ $user['nombre'] }} {{ $user['apellido_p'] }} {{ $user['apellido_m'] }}</p>
         <p><strong>Correo:</strong> {{ $user['correo'] }}</p>
         <p><strong>Fecha de nacimiento:</strong> {{ $user['fecha_nacimiento'] }}</p>
-        <p><em>Fecha de registro: {{ $user['created_at'] }}</em></p>
+        <p><strong>Fecha de registro:</strong> {{ $user['created_at'] }}</p>
         <br>
     </div>
 
