@@ -14,18 +14,19 @@ class formulariosController extends Controller
     {
         try {
             // Consumir el endpoint de FastAPI
-            $response = Http::get("https://e1c655a56504.ngrok-free.app/user/{$id}");
+            $response = Http::get("https://e1c655a56504.ngrok-free.app/user/{$usuario}");
 
             if ($response->successful()) {
                 $user = $response->json();
-
+                return view('InfoExistente');
                 // Si el usuario existe -> mostrar vista con datos
-                return view('formularios',compact('usuario'));
+                
             }
 
             // Si la API responde 404 -> mostrar template de "no encontrado"
             if ($response->status() === 404) {
-                return view('InfoExistente');
+                
+                return view('formularios',compact('usuario'));
             }
 
             // Otros errores (500, etc.)
