@@ -162,7 +162,7 @@
         <p><strong>Nombre:</strong> {{ $user['nombre'] }} {{ $user['apellido_p'] }} {{ $user['apellido_m'] }}</p>
         <p><strong>Correo:</strong> {{ $user['correo'] }}</p>
         <p><strong>Fecha de nacimiento:</strong> {{ $user['fecha_nacimiento'] }}</p>
-        <p><strong>Fecha de registro:</strong> {{ $user['created_at'] }}</p>
+        <p><strong>Fecha de registro:</strong> {{ \Carbon\Carbon::parse($user['created_at'])->format('Y-m-d H:i') }}</p>
         <br>
     </div>
 
@@ -181,3 +181,4 @@
 </body>
 
 </html>
+
