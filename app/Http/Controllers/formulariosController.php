@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Http; // Para consumir API
 class formulariosController extends Controller
 {
 
-    public function index($usuario)
+    public function index(Request $request)
     {
+        $usuario = $request->query('user_id');
+        $token = $request->query('token');
         try {
             // Consumir el endpoint de FastAPI
             $response = Http::get("https://e1c655a56504.ngrok-free.app/user/{$usuario}");
