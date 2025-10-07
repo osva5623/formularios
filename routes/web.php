@@ -10,4 +10,4 @@ Route::get('/', function () {
 
 
 
-Route::get('/formularios/{usuario}', [formulariosController::class,'index'])->name('formularios');
+Route::get('/formularios', [formulariosController::class,'index'])->name('formularios');
