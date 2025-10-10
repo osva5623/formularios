@@ -462,37 +462,6 @@ form.addEventListener("submit", async function(e) {
       return;
     }
 
-form.addEventListener("submit", async function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
-
-    const emailVal = email.value.trim();
-
-
-    email.setCustomValidity("");
-
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    // Validación dominio del email
-    const lowerEmail = emailVal.toLowerCase();
-    const parts = lowerEmail.split('@');
-    if (parts.length !== 2 || parts[0].length === 0 || parts[1].length === 0) {
-      email.setCustomValidity('Formato de correo inválido.');
-      email.reportValidity();
-      return;
-    }
-
-    const domain = parts[1];
-    if (!allowedDomains.includes(domain)) {
-      email.setCustomValidity('Dominio no permitido. Usa uno de: ' + allowedDomains.join(', ') + '.');
-      email.reportValidity();
-      return;
-    }
-
     try {
         const response = await fetch("https://10b83db3f512.ngrok-free.app/submit", {
             method: "POST",
@@ -528,6 +497,7 @@ form.addEventListener("submit", async function(e) {
             text: '❌ No se pudo conectar con el servidor.'
         });
     }
+
 });
 
 </script>
