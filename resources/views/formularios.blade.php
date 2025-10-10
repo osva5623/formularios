@@ -144,6 +144,10 @@
 .button-container button:hover {
     background-color: #f0f0f0;
 }
+
+.button-container > * {
+    flex: 1;
+}
     </style>
 </head>
 
@@ -159,17 +163,18 @@
                 <label for="name">Nombre</label>
                 <input type="hidden" name="usuario" value="{{ $usuario }}" class="form-control" id="usuario">
 
-                <input type="text" class="form-control " name="name" id="name" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ]+" title="Solo letras" required>
+
+                <input type="text" class="form-control " name="name" id="name" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" title="Solo letras" autocomplete="off" required>
 
                 <label for="apellidoP">Apellido Paterno</label>
-                <input type="text" class="form-control" name="apellidoP" id="apellidoP" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ]+" title="Solo letras" required>
+                <input type="text" class="form-control" name="apellidoP" id="apellidoP" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" title="Solo letras" autocomplete="off" required>
 
                 <label for="apellidoM">Apellido Materno</label>
-                <input type="text" class="form-control" name="apellidoM" id="apellidoM" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ]+" title="Solo letras" required>
+                <input type="text" class="form-control" name="apellidoM" id="apellidoM" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" title="Solo letras" autocomplete="off" required>
                 <label for="email">Correo electrónico</label>
-                <input type="email" class="form-control" name="email" id="email"  required>
+                <input type="email" class="form-control" name="email" id="email" autocomplete="off"  required>
                 <label for="fecha_na">Fecha de nacimiento</label>
-                <input type="text" id="fecha-input" class="form-control" name="fecha_na"  required>
+                <input type="text" id="fecha-input" class="form-control" name="fecha_na" autocomplete="off"  required>
             </div>
     <div class="modal-background hidden">
         <div class="date-picker-container">
@@ -358,12 +363,12 @@
         modalBackground.classList.remove('hidden');
     });
 
-    cancelButton.addEventListener('click', () => {
-        modalBackground.classList.add('hidden');
-    });
+ //   cancelButton.addEventListener('click', () => {
+ //       modalBackground.classList.add('hidden');
+ //   });
 
     acceptButton.addEventListener('click', () => {
-        const formattedDate = `${selectedValues.day}/${selectedValues.month + 1}/${selectedValues.year}`;
+        const formattedDate =   `${selectedValues.year}-${selectedValues.month + 1}-${selectedValues.day}`;
         fechaInput.value = formattedDate;
         modalBackground.classList.add('hidden');
     });
@@ -379,11 +384,44 @@
         'yahoo.com',
         'icloud.com',
         'live.com',
-        'protonmail.com'
-    ];
+        'protonmail.com',
+        'me.com',
+        'mac.com',
+        'yahoo.com.mx',
+        'hotmail.com.mx',
+        'outlook.com.mx',
+        'live.com.mx',
+        'prodigy.net.mx',
+        'infinitum.net.mx',
+        'terra.com.mx',
+        'axtel.net',
+        'izzi.mx',
+        'megacable.com.mx',
+        'une.net.mx',
+        'protonmail.com',
+        'zoho.com',
+        'gmx.com',
+        'mail.com',
+        'aol.com',
+        'tutanota.com',
+        'startmail.com',
+        'hushmail.com',
+        'educacion.gob.mx',
+        'sep.gob.mx',
+        'gob.mx',
+        'unam.mx',
+        'ipn.mx',
+        'tec.mx',
+        'udg.mx',
+        'uanl.mx',
+        'uabc.mx',
+        'itesm.mx',
+        'uady.mx',
+        'universidad.edu.mx'
+		];
 
-    
-    
+
+
 const email = document.getElementById('email');
 
 email.addEventListener('input', () => {
@@ -418,13 +456,45 @@ form.addEventListener("submit", async function(e) {
 
     const domain = parts[1];
     if (!allowedDomains.includes(domain)) {
+      
+      email.setCustomValidity('Por favor ingresa un domino valido');
+      email.reportValidity();
+      return;
+    }
+
+form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+
+    const emailVal = email.value.trim();
+
+
+    email.setCustomValidity("");
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // Validación dominio del email
+    const lowerEmail = emailVal.toLowerCase();
+    const parts = lowerEmail.split('@');
+    if (parts.length !== 2 || parts[0].length === 0 || parts[1].length === 0) {
+      email.setCustomValidity('Formato de correo inválido.');
+      email.reportValidity();
+      return;
+    }
+
+    const domain = parts[1];
+    if (!allowedDomains.includes(domain)) {
       email.setCustomValidity('Dominio no permitido. Usa uno de: ' + allowedDomains.join(', ') + '.');
       email.reportValidity();
       return;
     }
 
     try {
-        const response = await fetch("https://e1c655a56504.ngrok-free.app/submit", {
+        const response = await fetch("https://10b83db3f512.ngrok-free.app/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
