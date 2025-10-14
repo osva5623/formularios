@@ -200,7 +200,7 @@
                 <label for="email">Correo electrónico</label>
                 <input type="email" class="form-control" name="email" id="email" autocomplete="off"  required>
                 <label for="fecha_na">Fecha de nacimiento</label>
-                <input type="text" id="fecha-input" class="form-control" name="fecha_na" pattern="^[0-9-]+$" autocomplete="off"  required>
+                <input type="text" id="fecha-input" class="form-control" name="fecha_na" pattern="[0-9\-]+" title="formato de fecha: aaaa-mm-dd" autocomplete="off"  required>
             </div>
     <div class="modal-background hidden">
         <div class="date-picker-container">
