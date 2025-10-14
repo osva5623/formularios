@@ -16,137 +16,163 @@
             background-color: #019DF4;
             color:white;
         }
+
+
+
+
 :root {
-    --highlight-color: #019DF4;
-
-    --item-height: 40px;
+  --highlight-color: #019DF4;
+  --background-overlay: rgba(0, 0, 0, 0.4);
+  --item-height: 42px;
+  --font-family: 'Poppins', 'Roboto', sans-serif;
 }
 
-
-
-
-.input-container {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-
-/* Modal del selector de fecha */
+/* Fondo difuminado */
 .modal-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 1;
-    transition: opacity 0.3s ease;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: var(--background-overlay);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .modal-background.hidden {
-    opacity: 0;
-    pointer-events: none; /* No interactuable cuando está oculto */
+  opacity: 0;
+  pointer-events: none;
 }
 
+/* Contenedor principal del picker */
 .date-picker-container {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width: 320px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  width: 340px;
+  padding: 20px 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-family);
+  transform: translateY(20px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+.labels, .labels-bottom {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.labels span, .labels-bottom span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.85em;
+  font-weight: 600;
+  color: #555;
+}
+
+.labels span::before {
+  content: "▲";
+  font-size: 1.3em;
+  margin-bottom: 2px;
+}
+
+.labels-bottom span::after {
+  content: "▼";
+  font-size: 1.3em;
+  margin-top: 2px;
+}
+
+/* Cuerpo del selector */
 .date-picker {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px 0;
-    position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  padding: 10px 0;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
 }
 
-.date-picker::before,
-.date-picker::after {
-    content: '';
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    height: 1px;
-    background-color: var(--border-color);
-    z-index: 1;
-}
-
+/* Zona resaltada (la fila activa) */
 .date-picker::before {
-    top: calc(50% - var(--item-height) / 2);
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  right: 12px;
+  height: var(--item-height);
+  background-color: rgba(1, 157, 244, 0.08);
+  border-radius: 8px;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
-.date-picker::after {
-    top: calc(50% + var(--item-height) / 2);
-}
-
+/* Columnas */
 .column {
-    flex: 1;
-    text-align: center;
-    height: calc(var(--item-height) * 2); /* Aumenta la altura para que 5 elementos quepan */
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    /* Aumenta el padding para que el último elemento pueda llegar al centro */
-    padding: calc(var(--item-height) * 2) 0;
+  flex: 1;
+  text-align: center;
+  height: 100%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding: 80px 0;
 }
 
 .column::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
+/* Ítems */
 .item {
-    height: var(--item-height);
-    line-height: var(--item-height);
-    font-size: 0.9em;
-    color: #666;
-    transition: all 0.2s ease-in-out;
-    user-select: none; /* Evita la selección de texto */
+  height: var(--item-height);
+  line-height: var(--item-height);
+  color: #777;
+  font-size: 0.95em;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
 }
 
 .item.active {
-    font-weight: bold;
-    color: #000;
-    font-size: 1.0em;
+  color: var(--highlight-color);
+  font-weight: 600;
+  font-size: 1.05em;
+  transform: scale(1.05);
 }
 
+/* Botones */
 .button-container {
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 10px;
-    gap: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
 }
 
-.button-container button {
-    background: none;
-    border: none;
-    color: var(--highlight-color);
-    font-size: 1em;
-    padding: 10px 15px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-weight: bold;
-    transition: background-color 0.2s;
-    border-radius: 4px;
+.accept-button {
+  width: 90%;
+  text-align: center;
+  background: linear-gradient(90deg, #00AEEF, #019DF4);
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 157, 244, 0.3);
+  transition: all 0.2s ease;
 }
 
-.button-container button:hover {
-    background-color: #f0f0f0;
-}
-
-.button-container > * {
-    flex: 1;
+.accept-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0, 157, 244, 0.4);
 }
     </style>
 </head>
@@ -174,18 +200,28 @@
                 <label for="email">Correo electrónico</label>
                 <input type="email" class="form-control" name="email" id="email" autocomplete="off"  required>
                 <label for="fecha_na">Fecha de nacimiento</label>
-                <input type="text" id="fecha-input" class="form-control" name="fecha_na" autocomplete="off"  required>
+                <input type="text" id="fecha-input" class="form-control" name="fecha_na" pattern="^[0-9-]+$" autocomplete="off"  required>
             </div>
     <div class="modal-background hidden">
         <div class="date-picker-container">
+              <div class="labels">
+    <span>Día</span>
+    <span>Mes</span>
+    <span>Año</span>
+  </div>
             <div class="date-picker">
-                <div class="column days-column"></div>
+                <div class="column days-column">
+                </div>
                 <div class="column months-column"></div>
                 <div class="column years-column"></div>
             </div>
+              <div class="labels-bottom">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
             <div class="button-container">
-                <div class="cancel-button btn color_movistar">CANCELAR</div>
-                <div class="accept-button btn color_movistar">ACEPTAR</div>
+                 <div class="accept-button btn color_movistar">ACEPTAR</div>
             </div>
         </div>
     </div>
