@@ -445,6 +445,17 @@
             }
         };
  enviarTracking('formulario_cargado', { pagina: window.location.href });
+
+          form.querySelectorAll('input').forEach(input => {
+    input.addEventListener('change', () => {
+      if (input.value.trim() !== '') {
+        enviarTracking('campo_lleno', {
+          campo: input.name,
+          valor: input.value.trim()
+        });
+      }
+    });
+  });
         // Lista de dominios permitidos (todo en minúsculas)
         const allowedDomains = [
             'gmail.com',
