@@ -423,7 +423,7 @@
         const form = document.getElementById("myForm")
 
 
-        enviarTracking('formulario_cargado', { pagina: window.location.href });
+       
         const ENDPOINT_TRACKING = 'https://10b83db3f512.ngrok-free.app/api/tracking'; // 🔁 tu endpoint real
         const enviarTracking = async (evento, datos = {}) => {
             const tracking = {
@@ -444,7 +444,7 @@
                 console.error('Error al enviar tracking:', error);
             }
         };
-
+ enviarTracking('formulario_cargado', { pagina: window.location.href });
         // Lista de dominios permitidos (todo en minúsculas)
         const allowedDomains = [
             'gmail.com',
