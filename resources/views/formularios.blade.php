@@ -415,6 +415,7 @@
             acceptButton.addEventListener('click', () => {
                 const formattedDate = `${selectedValues.year}-${selectedValues.month + 1}-${selectedValues.day}`;
                 fechaInput.value = formattedDate;
+                fechaInput.dispatchEvent(new Event('change', { bubbles: true }));
                 modalBackground.classList.add('hidden');
             });
         });
@@ -430,7 +431,7 @@
             const tracking = {
                 evento,
                 timestamp: new Date().toISOString(),
-                usuario: user.value,
+                conversation_id: user.value,
                 datos
             };
 
@@ -554,7 +555,7 @@
 
                 if (response.ok) {
                     const result = await response.json();
-                    await enviarTracking('formulario_enviado', { datosFormulario: data });
+                    await enviarTracking('formulario_enviado', { datosFormulario: "formulario" });
                     Swal.fire({
                         icon: 'success',
                         title: 'Listo',
@@ -565,7 +566,7 @@
                         window.close();
                     });
                 } else {
-                    await enviarTracking('Error_envio_Formulario', { datosFormulario: data });
+                    await enviarTracking('Error_envio_Formulario', { datosFormulario: "formulario" });
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
@@ -573,7 +574,7 @@
                     });
                 }
             } catch (error) {
-                await enviarTracking('Error_desconocido', { datosFormulario: data });
+                await enviarTracking('Error_desconocido', { datosFormulario: "formulario" });
                 console.error("Error de red:", error);
                 Swal.fire({
                     icon: 'error',
