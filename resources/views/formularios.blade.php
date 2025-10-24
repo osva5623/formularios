@@ -429,8 +429,9 @@
         const enviarTracking = async (eventType, input = {}) => {
             const user = document.getElementById('usuario');
             const tracking = {
+                conversation_id: user.value,
       message:{
-          conversation_id: user.value,
+          
         data:{
           eventType,
           timestamp: new Date().toISOString(),
