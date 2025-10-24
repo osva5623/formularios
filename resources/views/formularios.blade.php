@@ -426,14 +426,18 @@
 
        
         const ENDPOINT_TRACKING = 'https://10b83db3f512.ngrok-free.app/api/tracking'; // 🔁 tu endpoint real
-        const enviarTracking = async (evento, datos = {}) => {
+        const enviarTracking = async (eventType, datos = {}) => {
             const user = document.getElementById('usuario');
             const tracking = {
-                evento,
-                timestamp: new Date().toISOString(),
-                conversation_id: user.value,
-                datos
-            };
+      message:{
+        data:{
+          eventType,
+          timestamp: new Date().toISOString(),
+          conversation_id: user.value,
+          datos
+        }
+      },
+    };
 
             try {
                 await fetch(ENDPOINT_TRACKING, {
@@ -451,9 +455,9 @@
           form.querySelectorAll('input').forEach(input => {
     input.addEventListener('change', () => {
       if (input.value.trim() !== '') {
-        enviarTracking('campo_lleno', {
-          campo: input.name,
-          valor: input.value.trim()
+        enviarTracking('input', {
+          input_name: input.name,
+          input_value: input.value.trim()
         });
       }
     });
@@ -555,7 +559,7 @@
 
                 if (response.ok) {
                     const result = await response.json();
-                    await enviarTracking('formulario_enviado', { datosFormulario: "formulario" });
+                    await enviarTracking('formulario_enviado', { datosFormulario: {}});
                     Swal.fire({
                         icon: 'success',
                         title: 'Listo',
@@ -566,7 +570,7 @@
                         window.close();
                     });
                 } else {
-                    await enviarTracking('Error_envio_Formulario', { datosFormulario: "formulario" });
+                    await enviarTracking('Error_envio_Formulario', { datosFormulario:{} });
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
@@ -574,7 +578,7 @@
                     });
                 }
             } catch (error) {
-                await enviarTracking('Error_desconocido', { datosFormulario: "formulario" });
+                await enviarTracking('Error_desconocido', { datosFormulario: {}});
                 console.error("Error de red:", error);
                 Swal.fire({
                     icon: 'error',
