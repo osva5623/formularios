@@ -426,15 +426,16 @@
 
        
         const ENDPOINT_TRACKING = 'https://10b83db3f512.ngrok-free.app/api/tracking'; // 🔁 tu endpoint real
-        const enviarTracking = async (eventType, datos = {}) => {
+        const enviarTracking = async (eventType, input = {}) => {
             const user = document.getElementById('usuario');
             const tracking = {
       message:{
+          conversation_id: user.value,
         data:{
           eventType,
           timestamp: new Date().toISOString(),
-          conversation_id: user.value,
-          datos
+          
+          input
         }
       },
     };
